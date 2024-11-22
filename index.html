@@ -43,10 +43,17 @@
             }
 
             function Favorites() {
+                const CAT1 = 'https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react';
+                const CAT2 = 'https://cataas.com/cat/BxqL2EjFmtxDkAm2/says/inflearn';
+                const CAT3 = 'https://cataas.com/cat/18MD6byVC1yKGpXp/says/JavaScript';
+
+                const cats = [CAT1, CAT2];
+
                 return (
                     <ul className="favorites">
-                        <CatItems img="https://cataas.com/cat/18MD6byVC1yKGpXp/says/JavaScript" />
-                        <CatItems img="https://cataas.com/cat/BxqL2EjFmtxDkAm2/says/inflearn" />
+                        {cats.map((cat, index) => (
+                            <CatItems img={cat} key={index} />
+                        ))}
                     </ul>
                 );
             }
