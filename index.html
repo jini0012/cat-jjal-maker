@@ -25,9 +25,6 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-        .favorites img {
-            width: 150px;
-        }
     </style>
     <body>
         <div id="root"></div>
@@ -42,7 +39,7 @@
             function CatItems(props) {
                 return (
                     <li>
-                        <img src={props.img} />
+                        <img src={props.img} style={{ width: '150px' }} />
                     </li>
                 );
             }
@@ -52,7 +49,6 @@
                     <ul className="favorites">
                         <CatItems img="https://cataas.com/cat/18MD6byVC1yKGpXp/says/JavaScript" />
                         <CatItems img="https://cataas.com/cat/BxqL2EjFmtxDkAm2/says/inflearn" />
-                        <CatItems />
                     </ul>
                 );
             }
