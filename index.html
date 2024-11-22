@@ -30,28 +30,68 @@
         }
     </style>
     <body>
-        <h1>1번째 고양이 가라사대</h1>
-        <form>
-            <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
-            <button type="submit">생성</button>
-        </form>
-        <div class="main-card">
-            <img src="https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react" alt="고양이" width="400" />
-            <button>🤍</button>
-        </div>
-        <ul class="favorites">
-            <li>
-                <img src="https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react" alt="고양이" />
-            </li>
-            <li>
-                <img src="https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react" alt="고양이" />
-            </li>
-            <li>
-                <img src="https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react" alt="고양이" />
-            </li>
-        </ul>
-        <script>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+        <script type="text/babel">
             console.log('야옹');
+
+            function CatItems(props) {
+                return (
+                    <li>
+                        <img src={props.img} />
+                    </li>
+                );
+            }
+
+            function Favorites() {
+                return (
+                    <ul className="favorites">
+                        <CatItems img="https://cataas.com/cat/18MD6byVC1yKGpXp/says/JavaScript" />
+                        <CatItems img="https://cataas.com/cat/BxqL2EjFmtxDkAm2/says/inflearn" />
+                        <CatItems />
+                    </ul>
+                );
+            }
+
+            const MainCard = (props) => {
+                return (
+                    <div className="main-card">
+                        <img src={props.img} alt="고양이" width="400" />
+                        <button>🤍</button>
+                    </div>
+                );
+            };
+
+            const Form = () => {
+                return (
+                    <form>
+                        <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
+                        <button type="submit">생성</button>
+                    </form>
+                );
+            };
+
+            const Title = (props) => {
+                console.log(props);
+
+                return <h1>{props.children}</h1>;
+            };
+
+            const app = (
+                <div>
+                    <Title>1번째 고양이 가라사대</Title>
+                    <Title>2번째 고양이 가라사대</Title>
+                    <Form />
+                    <MainCard img="https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react" />
+                    <Favorites />
+                </div>
+            );
+            const here = document.querySelector('#root');
+            ReactDOM.render(app, here);
         </script>
     </body>
 </html>
