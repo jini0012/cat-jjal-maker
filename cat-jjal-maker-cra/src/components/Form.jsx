@@ -18,7 +18,7 @@ const Form = ({ updateMainCat }) => {
         e.preventDefault();
         setErrorMessage('');
 
-        if (value === '') {
+        if (value === '' || value === ' ') {
             setErrorMessage('빈 값으로 만들 수 없습니다.');
             // return;
         }
@@ -35,7 +35,9 @@ const Form = ({ updateMainCat }) => {
                 placeholder="영어 대사를 입력해주세요"
                 value={value}
             />
-            <button type="submit">생성</button>
+            <button type="submit" disabled={errorMessage}>
+                생성
+            </button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
         </form>
     );
