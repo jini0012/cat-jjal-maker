@@ -29,6 +29,8 @@
     <body>
         <div id="root"></div>
 
+        <!-- https://cataas.com/ -->
+
         <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -52,20 +54,52 @@
                 );
             }
 
-            const MainCard = ({ img, handleHeartClick }) => {
+            const MainCard = ({ img, onHeartClick }) => {
                 return (
                     <div className="main-card">
                         <img src={img} alt="고양이" width="400" />
-                        <button onClick={handleHeartClick}>🤍</button>
+                        <button onClick={onHeartClick}>🤍</button>
                     </div>
                 );
             };
 
-            const Form = ({ handleFormSubmit }) => {
+            const Form = ({ updateMainCat }) => {
+                const includesHangul = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);
+                const [value, setValue] = React.useState('');
+                const [errorMessage, setErrorMessage] = React.useState('');
+
+                function handleInputChange(e) {
+                    const userValue = e.target.value;
+                    setErrorMessage('');
+                    if (includesHangul(userValue)) {
+                        setErrorMessage('한글은 입력할 수 없습니다.');
+                    }
+                    setValue(userValue.toUpperCase());
+                }
+
+                function handleFormSubmit(e) {
+                    e.preventDefault();
+                    setErrorMessage('');
+
+                    if (value === '') {
+                        setErrorMessage('빈 값으로 만들 수 없습니다.');
+                        // return;
+                    }
+
+                    updateMainCat(value);
+                }
+
                 return (
                     <form onSubmit={handleFormSubmit}>
-                        <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
+                        <input
+                            onChange={handleInputChange}
+                            type="text"
+                            name="name"
+                            placeholder="영어 대사를 입력해주세요"
+                            value={value}
+                        />
                         <button type="submit">생성</button>
+                        <p style={{ color: 'red' }}>{errorMessage}</p>
                     </form>
                 );
             };
@@ -79,29 +113,47 @@
                 const CAT2 = 'https://cataas.com/cat/BxqL2EjFmtxDkAm2/says/inflearn';
                 const CAT3 = 'https://cataas.com/cat/18MD6byVC1yKGpXp/says/JavaScript';
 
-                // 자식컴포넌트 2개에서 함께 사용하고 싶은 상태
-                const [counter, setCounter] = React.useState(1);
-                const [mainCat, setMainCat] = React.useState(CAT1);
-                const [favorites, setFavorites] = React.useState([CAT1, CAT2]);
+                const jsonLocalStorage = {
+                    setItem: (key, value) => {
+                        localStorage.setItem(key, JSON.stringify(value));
+                    },
+                    getItem: (key) => {
+                        return JSON.parse(localStorage.getItem(key));
+                    },
+                };
 
-                function handleFormSubmit(e) {
-                    e.preventDefault();
-                    console.log('폼 전송됨');
-                    setCounter(counter + 1);
-                    setMainCat(CAT2);
+                const fetchCat = async (text) => {
+                    const OPEN_API_DOMAIN = 'https://cataas.com';
+                    const response = await fetch(`${OPEN_API_DOMAIN}/cat/says/${text}?json=true`);
+                    const responseJson = await response.json();
+                    return `${OPEN_API_DOMAIN}/cat/${responseJson._id}/says/${text}`; // NOTE: API 스펙 변경으로 강의 영상과 다른 URL로 변경했습니다.
+                };
+
+                // 자식컴포넌트 2개에서 함께 사용하고 싶은 상태
+                const [counter, setCounter] = React.useState(jsonLocalStorage.getItem());
+                const [mainCat, setMainCat] = React.useState(CAT1);
+                const [favorites, setFavorites] = React.useState(jsonLocalStorage.getItem('favorites') || []);
+
+                async function updateMainCat(value) {
+                    const newCat = await fetchCat(value);
+                    setMainCat(newCat);
+                    const nextCounter = counter + 1;
+                    setCounter(nextCounter);
+                    localStorage.setItem('counter', nextCounter);
                 }
 
                 function handleHeartClick() {
+                    const nextFavorites = [...favorites, mainCat];
                     // 이름은 handle + ~~ + 이벤트명 이렇게 적는게 관례임
-                    console.log('하트 눌렀음!');
-                    setFavorites([...favorites, CAT3]);
+                    setFavorites(nextFavorites);
+                    jsonLocalStorage.setItem('favorites', nextFavorites);
                 }
 
                 return (
                     <div>
                         <Title>{counter}번째 고양이 가라사대</Title>
-                        <Form handleFormSubmit={handleFormSubmit} />
-                        <MainCard img={mainCat} handleHeartClick={handleHeartClick} />
+                        <Form updateMainCat={updateMainCat} />
+                        <MainCard img={mainCat} onHeartClick={handleHeartClick} />
                         <Favorites favorites={favorites} />
                     </div>
                 );
