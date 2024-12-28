@@ -6,7 +6,7 @@
 
 > 랜덤으로 보여주는 귀여운 고양이 사진에 내가 원하는 영문 문구를 추가하여 짤로 만들어주는 페이지
 
-React 복습을 위해 인프런 강의(https://www.inflearn.com/course/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B8%B0%EC%B4%88)를 수강하며 제작된 페이지 입니다.
+React 복습을 위해 인프런 강의(https://www.inflearn.com/course/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B8%B0%EC%B4%88) 를 수강하며 제작된 페이지 입니다.
 
 ## 기능
 
