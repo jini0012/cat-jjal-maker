@@ -64,6 +64,11 @@ const App = () => {
     jsonLocalStorage.setItem("favorites", nextFavorites);
   }
 
+  function handleDeleteClick() {
+    setFavorites([]);
+    localStorage.removeItem("favorites");
+  }
+
   const title = counter ? `${counter}번째 ` : "";
 
   return (
@@ -73,6 +78,7 @@ const App = () => {
       <MainCard
         img={mainCat}
         onHeartClick={handleHeartClick}
+        onDeleteClick={handleDeleteClick}
         alreadyFavorite={alreadyFavorite}
       />
       <Favorites favorites={favorites} />
