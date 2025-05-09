@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/cat-jjal-maker/static/css/main.93f66dac.css",
-    "main.js": "/cat-jjal-maker/static/js/main.deffdb4a.js",
+    "main.css": "/cat-jjal-maker/static/css/main.d0b8355f.css",
+    "main.js": "/cat-jjal-maker/static/js/main.b125590a.js",
     "static/js/453.e9cb9a4a.chunk.js": "/cat-jjal-maker/static/js/453.e9cb9a4a.chunk.js",
-    "static/media/logo.svg": "/cat-jjal-maker/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/cat-jjal-maker/index.html",
-    "main.93f66dac.css.map": "/cat-jjal-maker/static/css/main.93f66dac.css.map",
-    "main.deffdb4a.js.map": "/cat-jjal-maker/static/js/main.deffdb4a.js.map",
+    "main.d0b8355f.css.map": "/cat-jjal-maker/static/css/main.d0b8355f.css.map",
+    "main.b125590a.js.map": "/cat-jjal-maker/static/js/main.b125590a.js.map",
     "453.e9cb9a4a.chunk.js.map": "/cat-jjal-maker/static/js/453.e9cb9a4a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.93f66dac.css",
-    "static/js/main.deffdb4a.js"
+    "static/css/main.d0b8355f.css",
+    "static/js/main.b125590a.js"
   ]
 }
