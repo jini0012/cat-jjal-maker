@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import React, { useEffect, useState } from "react";
 import Title from "./components/Title";
 import Favorites from "./components/Favorites";
@@ -7,10 +6,6 @@ import Form from "./components/Form";
 import "./App.css";
 
 const App = () => {
-  const CAT1 = "https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react";
-  const CAT2 = "https://cataas.com/cat/BxqL2EjFmtxDkAm2/says/inflearn";
-  const CAT3 = "https://cataas.com/cat/18MD6byVC1yKGpXp/says/JavaScript";
-
   const jsonLocalStorage = {
     setItem: (key, value) => {
       localStorage.setItem(key, JSON.stringify(value));
@@ -36,7 +31,7 @@ const App = () => {
     return jsonLocalStorage.getItem();
   });
 
-  const [mainCat, setMainCat] = useState(CAT1);
+  const [mainCat, setMainCat] = useState();
   const [favorites, setFavorites] = useState(() => {
     return jsonLocalStorage.getItem("favorites") || [];
   });
